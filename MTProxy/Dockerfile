@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y build-essential \
     && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 
 WORKDIR /MTProxy/objs/bin
-EXPOSE 8089
+EXPOSE 8888 443
 ENTRYPOINT [ "./mtproto-proxy",\
 "-u", "nobody", \
 "-H", "443", \
