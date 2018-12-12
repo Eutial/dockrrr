@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y build-essential \
     zlib1g-dev \
     curl \
     git \
+    && rm -rf /var/lib/apt/lists/* \
     && git clone https://github.com/TelegramMessenger/MTProxy \
     && cd MTProxy \
     && make \
@@ -17,6 +18,6 @@ EXPOSE 8089
 ENTRYPOINT [ "./mtproto-proxy",\
 "-u", "nobody", \
 "-p", "8089", \
-"--aws-pwc", "proxy-secret", \
+"--aes-pwd", "proxy-secret", \
 "proxy-multi.conf", \
 "-M", "1"]
