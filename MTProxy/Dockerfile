@@ -1,9 +1,9 @@
-FROM alpine:3.6
+FROM ubuntu:18.04
 
-RUN apk --no-cache add build-base \
-    openssl-dev \
+RUN apt-get update && apt-get install -y build-essential \
+    libssl-dev \
+    zlib1g-dev \
     curl \
-    zlib-dev \
     git \
     && git clone https://github.com/TelegramMessenger/MTProxy \
     && cd MTProxy \
