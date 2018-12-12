@@ -17,7 +17,8 @@ WORKDIR /MTProxy/objs/bin
 EXPOSE 8089
 ENTRYPOINT [ "./mtproto-proxy",\
 "-u", "nobody", \
-"-p", "8089", \
+"-H", "443", \
+"-p", "8888", \
 "--aes-pwd", "proxy-secret", \
 "proxy-multi.conf", \
 "-M", "1"]
