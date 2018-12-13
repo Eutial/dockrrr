@@ -1,4 +1,5 @@
 FROM ubuntu:18.04
+LABEL maintainer="Eutial"
 
 RUN apt-get update && apt-get install -y build-essential \
     libssl-dev \
