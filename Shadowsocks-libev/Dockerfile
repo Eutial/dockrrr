@@ -1,13 +1,34 @@
-FROM ubuntu:18.04 as builder
+FROM alpine:latest as builder
+LABEL maintainer="Kaesarine"
 
-RUN apt install --no-install-recommends -y \
-        gettext \
-        build-essential \
-        autoconf libtool \
-        libpcre3-dev asciidoc \
-        xmlto \
-        libev-dev \
-        libc-ares-dev \
-        automake \
-        libmbedtls-dev \
-        libsodium-dev
+RUN apk add --no-cache \
+      asciidoc \
+      autoconf \
+      automake \
+      build-base \
+      c-ares-dev \
+      git \
+      libev-dev \
+      libtool \
+      libsodium-dev \
+      linux-headers \
+      mbedtls-dev \
+      pcre-dev \
+      xmlto
+
+RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
+    && cd shadowsocks-libev \
+    && git submodule update --init --recursive \
+    && ./autogen.sh \
+    && ./configure \
+    && make
+
+FROM alpine:latest
+
+COPY --from=builder /shadowsocks-libev/src/ss-server /usr/bin/ss-server
+
+RUN apk add --no-cache libev
+
+WORKDIR /etc/shadowsocks-libev
+
+CMD [ "ss-server", "-c", "/etc/shadowsocks-libev/config.json" ]

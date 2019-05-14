@@ -1,6 +1,5 @@
 FROM alpine:latest as builder
-
-LABEL maintainer "Kaesarine"
+LABEL maintainer="Kaesarine"
 
 RUN apk add --no-cache git \
     gcc \
@@ -29,7 +28,7 @@ EXPOSE 443
 
 COPY --from=builder /simple-obfs/src/obfs-server /usr/bin/obfs-server
 
-RUN apk add --no-cache libev-dev
+RUN apk add --no-cache libev
 
 WORKDIR /etc/simple-obfs
 
