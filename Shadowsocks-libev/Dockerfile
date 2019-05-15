@@ -27,7 +27,12 @@ FROM alpine:latest
 
 COPY --from=builder /shadowsocks-libev/src/ss-server /usr/bin/ss-server
 
-RUN apk add --no-cache libev
+RUN apk add --no-cache libev \
+            libsodium \
+            mbedtls \
+            pcre \
+            c-ares
+
 
 WORKDIR /etc/shadowsocks-libev
 
