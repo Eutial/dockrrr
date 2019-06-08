@@ -1,5 +1,5 @@
 FROM alpine:latest as builder
-LABEL maintainer="Kaesarine"
+LABEL maintainer="Entrophy LLC"
 
 RUN apk add --no-cache git \
     gcc \
@@ -24,7 +24,6 @@ RUN git clone https://github.com/shadowsocks/simple-obfs.git \
     && make
 
 FROM alpine:latest
-EXPOSE 443
 
 COPY --from=builder /simple-obfs/src/obfs-server /usr/bin/obfs-server
 

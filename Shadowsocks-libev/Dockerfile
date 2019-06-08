@@ -1,5 +1,5 @@
 FROM alpine:latest as builder
-LABEL maintainer="Kaesarine"
+LABEL maintainer="Entrophy LLC"
 
 RUN apk add --no-cache \
       asciidoc \
@@ -31,8 +31,8 @@ RUN apk add --no-cache libev \
             libsodium \
             mbedtls \
             pcre \
-            c-ares
-
+            c-ares \
+            haveged
 
 WORKDIR /etc/shadowsocks-libev
 
