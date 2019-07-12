@@ -45,8 +45,8 @@ RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
   && make
 
 FROM alpine:latest
-COPY --from=builder-shadowsocks /shadowsocks-libev/src/ss-server /usr/bin/ss-server
-COPY --from=builder-obfs /simple-obfs/src/obfs-server /usr/bin/obfs-server
+COPY --from=shadowsocks-builder /shadowsocks-libev/src/ss-server /usr/bin/ss-server
+COPY --from=obfs-builder /simple-obfs/src/obfs-server /usr/bin/obfs-server
 RUN apk add --no-cache libev \
     libsodium \
     mbedtls \
