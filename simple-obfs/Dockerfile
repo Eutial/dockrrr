@@ -2,19 +2,20 @@ FROM alpine:latest as builder
 LABEL maintainer="Entrophy LLC"
 
 RUN apk add --no-cache git \
-    gcc \
-    autoconf \
-    make \
-    libtool \
-    automake \
-    zlib-dev \
-    openssl \
     asciidoc \
-    xmlto \
-    libpcre32 \
-    libev-dev \
+    autoconf \
+    automake \
+    build-base \
     g++ \
-    linux-headers
+    gcc \
+    libev-dev \
+    libpcre32 \
+    libtool \
+    linux-headers \
+    make \
+    openssl \
+    xmlto \
+    zlib-dev
 
 RUN git clone https://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \

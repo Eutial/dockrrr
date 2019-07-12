@@ -3,8 +3,10 @@ services:
   shadowsocks:
     image: eutial/shadowsocks-libev
     container_name: shadowsocks-libev
+    ports:
+      - "18965:18965/udp"
     volumes:
-      - "$PWD/config.json:/etc/shadowsocks-libev/config.json"
+      - "$PWD/libev.json:/etc/shadowsocks-libev/config.json"
     networks:
       - interloop
   
@@ -12,10 +14,9 @@ services:
     image: eutial/simple-obfs
     container_name: simple-obfs
     ports:
-      - "443:443"
-      - "443:443/udp"
+      - "18965:18965"
     volumes:
-      - "$PWD/config.json:/etc/simple-obfs/config.json"
+      - "$PWD/obfs.json:/etc/simple-obfs/config.json"
     depends_on:
       - shadowsocks
     networks:
