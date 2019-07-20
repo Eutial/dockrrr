@@ -1,6 +1,5 @@
-FROM alpine:latest as builder
+FROM alpine:3.9 as builder
 LABEL maintainer="Entrophy LLC"
-
 RUN apk add --no-cache git \
     asciidoc \
     autoconf \
@@ -16,7 +15,6 @@ RUN apk add --no-cache git \
     openssl \
     xmlto \
     zlib-dev
-
 RUN git clone https://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \
     && git submodule update --init --recursive \
@@ -24,12 +22,8 @@ RUN git clone https://github.com/shadowsocks/simple-obfs.git \
     && ./configure \
     && make
 
-FROM alpine:latest
-
+FROM alpine:3.9
 COPY --from=builder /simple-obfs/src/obfs-server /usr/bin/obfs-server
-
 RUN apk add --no-cache libev
-
 WORKDIR /etc/simple-obfs
-
 CMD [ "obfs-server", "-c", "/etc/simple-obfs/config.json" ]
