@@ -4,12 +4,14 @@ LABEL aria2_version="1.35.0"
 
 RUN apk update && apk add --no-cache \
     aria2 \
-    && mkdir -p /aria2/downloads \
-    && mkdir -p /aria2/conf \
-    && touch /aria2/conf/aria2.session
+    && mkdir /aria2-downloads \
+    && mkdir /aria2
 
-COPY aria2.conf /aria2/conf/aria2.conf
+VOLUME /aria2
+VOLUME /aria2-downloads
 
-EXPOSE 6800
+EXPOSE 6800/tcp
+EXPOSE 60880/tcp
+EXPOSE 60881-60889/udp
 
-CMD ["aria2c", "--conf-path=/aria2/conf/aria2.conf"]
+CMD aria2c --conf-path=/aria2/aria2.conf
